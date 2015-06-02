@@ -1,18 +1,26 @@
 var app = angular.module('flapperNews', []);
 
+//post-making assembly line
+app.factory('posts', [function(){
+  var o = {
+    posts: []
+  };
+  return o;
+  
+}]);
+
+// defining $scope
 app.controller('MainCtrl', [
   '$scope',
-  function($scope){
+  'posts',
+  function($scope, posts){
     $scope.test = 'Hello, world!';
+    
+    //placeholder posts
+    $scope.posts = posts.posts;
+    
 
-    $scope.posts = [
-      {title: 'post1', upvotes: 9 },
-      {title: 'post2', upvotes: 2 },
-      {title: 'post3', upvotes: 12 },
-      {title: 'post4', upvotes: 5 },
-      {title: 'post5', upvotes: 4 }
-    ];
-
+    // function adds posts (title, link, upvotes);
     $scope.addPost = function(){
       if(!$scope.title || $scope.title === '') { return; }
       $scope.posts.push({
@@ -24,6 +32,7 @@ app.controller('MainCtrl', [
       $scope.link = '';
     };
 
+    // upvote
     $scope.incrementUpvotes = function(post){
       post.upvotes += 1;
     };
