@@ -1,4 +1,5 @@
-var app = angular.module('flapperNews', []);
+// declare app and dependencies
+var app = angular.module('flapperNews', ['ui.router']);
 
 //post-making assembly line
 app.factory('posts', [function(){
@@ -7,6 +8,22 @@ app.factory('posts', [function(){
   };
   return o;
   
+}]);
+
+//configure ui-router
+app.config([
+'$stateProvider',
+'$urlRouterProvider',
+function($stateProvider, $urlRouterProvider) {
+
+  $stateProvider
+    .state('home', {
+      url: '/home',
+      templateUrl: '/home.html',
+      controller: 'MainCtrl'
+    });
+
+  $urlRouterProvider.otherwise('home');
 }]);
 
 // defining $scope
@@ -18,7 +35,6 @@ app.controller('MainCtrl', [
     
     //placeholder posts
     $scope.posts = posts.posts;
-    
 
     // function adds posts (title, link, upvotes);
     $scope.addPost = function(){
