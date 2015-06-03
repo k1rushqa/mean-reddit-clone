@@ -15,7 +15,7 @@ app.config([
   '$stateProvider',
   '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider) {
-    
+
     //home state
     $stateProvider
       .state('home', {
@@ -23,7 +23,7 @@ app.config([
       templateUrl: '/home.html',
       controller: 'MainCtrl'
     });
-    
+
     //posts state
     $stateProvider
       .state('posts', {
@@ -44,7 +44,7 @@ app.controller('MainCtrl', [
     //placeholder posts
     $scope.posts = posts.posts;
 
-    // function adds posts (title, link, upvotes);
+    //add posts
     $scope.addPost = function(){
       if(!$scope.title || $scope.title === '') { return; }
       $scope.posts.push({
@@ -52,8 +52,8 @@ app.controller('MainCtrl', [
         link: $scope.link,
         upvotes: 0,
         comments: [
-        {author: 'Joe', body: 'Great post!', upvotes: 2},
-        {author: 'Bill', body: 'Bad post!', upvotes: 0},
+          {author: 'Joe', body: 'Great post!', upvotes: 2},
+          {author: 'Bill', body: 'Bad post!', upvotes: 0},
         ]
       });
       $scope.title = '';
@@ -69,9 +69,20 @@ app.controller('MainCtrl', [
 
 //defining posts $scope
 app.controller('PostsCtrl', [
-'$scope',
-'$stateParams',
-'posts',
-function($scope, $stateParams, posts){
-  $scope.post = posts.posts[$stateParams.id];
-}]);
+  '$scope',
+  '$stateParams',
+  'posts',
+  function($scope, $stateParams, posts){
+    $scope.post = posts.posts[$stateParams.id];
+
+    //add comments
+    $scope.addComment = function()  {
+      if($scope.body === '') { return; }
+      $scope.post.comments.push({
+        body: $scope.body,
+        author: 'user',
+        upvotes: 0
+      });
+      $scope.body = '';
+    };
+  }]);
