@@ -1,3 +1,9 @@
+// To start the server
+// In command line type
+// mongod --dbpath data
+//another terminal, npm start
+//(opt) another terminal mongo
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
